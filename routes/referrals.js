@@ -3,7 +3,7 @@ const router = express.Router();
 const { PrismaClient } = require('@prisma/client'); // Correct import
 const authenticateUser = require('../middleware');
 const nodemailer = require('nodemailer');
-const { use } = require('chai');
+
 const prisma = new PrismaClient(); 
 
 router.post('/', authenticateUser, async (req, res) => {

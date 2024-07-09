@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { PrismaClient } = require('@prisma/client'); // Correct import
 const { generateToken, hashPassword, verifyPassword } = require('../auth');
-const authenticateUser = require('../middleware');
+
 
 const prisma = new PrismaClient(); 
 

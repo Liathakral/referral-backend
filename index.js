@@ -14,7 +14,7 @@ const referralsroutes= require('./routes/referrals')
 app.use('/auth', authRoutes);
 app.use('/referrals', referralsroutes);
 
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 3002;
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
