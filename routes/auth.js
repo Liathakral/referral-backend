@@ -5,7 +5,7 @@ const { generateToken, hashPassword, verifyPassword } = require('../auth');
 const authenticateUser = require('../middleware');
 
 const prisma = new PrismaClient(); 
-// User Registration
+
 
 router.post('/register', async (req, res) => {
   const { name, email, password, referralCode } = req.body;
@@ -15,17 +15,17 @@ router.post('/register', async (req, res) => {
   }
 
   try {
-    // Check if the user already exists
+    
     const existingUser = await prisma.user.findUnique({ where: { email } });
 
     if (existingUser) {
       return res.status(400).json({ error: 'User already exists' });
     }
 
-    // Hash the password
+
     const hashedPassword = await hashPassword(password);
 
-    // Create the user
+
     const newUser = await prisma.user.create({
       data: {
         name,
@@ -35,7 +35,7 @@ router.post('/register', async (req, res) => {
       },
     });
 
-    // Generate a token
+
     const token = generateToken(newUser.id);
 
     res.status(201).json({ user: newUser, token });
@@ -45,7 +45,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// User Login
+
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
   }
 
   try {
-    // Find the user by email
+   
     const user = await prisma.user.findUnique({ where: { email } });
 
     if (!user) {
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    // Generate a token
+  
     const token = generateToken(user.id);
 
     res.status(200).json({ user, token });

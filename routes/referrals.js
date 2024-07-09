@@ -5,9 +5,7 @@ const authenticateUser = require('../middleware');
 const nodemailer = require('nodemailer');
 const { use } = require('chai');
 const prisma = new PrismaClient(); 
-// User Registration
 
-// User Referral
 router.post('/', authenticateUser, async (req, res) => {
   const { referrerCode } = req.body;
   const userId = req.userId; // Extracted from token
@@ -30,7 +28,7 @@ router.post('/', authenticateUser, async (req, res) => {
       return res.status(404).json({ error: 'Referrer not found' });
     }
 
-    // Save referral data
+  
     const newReferral = await prisma.referral.create({
       data: {
         userId,
@@ -66,7 +64,7 @@ async function sendReferralEmail(userEmail, referrerEmail) {
       },
     });
   
-    // Email content
+    
     const mailOptions = {
       from: 'liathakral28@gmail.com',
       to: userEmail,
@@ -74,7 +72,7 @@ async function sendReferralEmail(userEmail, referrerEmail) {
       text: `You have been referred by ${referrerEmail}. Join now!`,
     };
   
-    // Send email
+ 
     await transporter.sendMail(mailOptions);
   }
 module.exports = router;
